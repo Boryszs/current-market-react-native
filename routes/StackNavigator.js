@@ -101,7 +101,17 @@ const ExchangeStackkScrenn = ({navigation}) => (
 export default AppContainer = () =>{
 return (
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Home">
+      <Drawer.Navigator initialRouteName="Home" drawerContentOptions={{
+          backgroundColor:'silver',
+          activeTintColor: 'blue',
+          activeBackgroundColor: 'grey',
+          inactiveTintColor: 'white',
+          inactiveBackgroundColor: 'silver',
+          labelStyle:{
+            fontSize:18,
+            fontWeight:'bold',
+            marginLeft:5
+          }}}>
         <Drawer.Screen name="Home" component={HomeStackScrenn} options={{ title: 'Home', drawerIcon: () =>(<Icon name="md-home" size={26} color="#4F8EF7"/>)}} />
         <Drawer.Screen name="Crypto Currency" component={CryptoCurrencyStackScrenn} options={{ title: 'Crypto Currency', drawerIcon: () =>(<Icon name="card-outline" size={26} color="#4F8EF7"/>)}}/>
         <Drawer.Screen name="Currency" component={CurrencyStackScrenn} options={{ title: 'Currency', drawerIcon: () =>(<Icon name="logo-euro" size={26} color="#4F8EF7"/>)}}/>

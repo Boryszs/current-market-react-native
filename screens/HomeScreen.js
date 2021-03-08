@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, View, Text, FlatList, SafeAreaView, ScrollView } from 'react-native';
+import { Button, View, Text, FlatList, SafeAreaView, ScrollView, RefreshControl, StyleSheet} from 'react-native';
 
 export default class HomeScreen extends React.Component {
 
@@ -9,9 +9,20 @@ export default class HomeScreen extends React.Component {
       crypto: [],
       currency: [],
       plExchange: [],
-      wExchange: []
+      wExchange: [],
+      isFetching: false,
     }
   }
+
+   handleRefresh = () => {
+    this.setState({ isFetching: true }, () => {
+       this.getCryptoCurrency();
+       this.getCurrency();
+       this.getPlExchamge();
+       this.getWExchamge();
+    });
+    this.setState({ isFetching: false });
+  };
 
   async componentDidMount() {
     try {
@@ -86,16 +97,21 @@ export default class HomeScreen extends React.Component {
 
   render() {
     return (
-      <ScrollView>
+      <ScrollView refreshControl={
+        <RefreshControl
+          refreshing={this.state.isFetching}
+          onRefresh={this.handleRefresh}
+        />
+      }>
         <View>
 
-          <Text style={{ fontSize: 28, fontWeight: 'bold', textAlign: 'center' }}>{'Crypto Currency'}</Text>
+          <Text style={styles.head_text}>{'Crypto Currency'}</Text>
           <Text></Text>
 
-          <View style={{ flex: 1, flexDirection: 'row', width: '100%', height: '100%', marginLeft: 10, marginBottom: 10 }}>
-            <Text style={{ width: '20%', fontSize: 18, textAlign: 'center', fontWeight: 'bold', fontSize: 18 }}>{'Name.'}</Text>
+          <View style={styles.table_head}>
+            <Text style={{ width: '30%', fontSize: 18, textAlign: 'center', fontWeight: 'bold', fontSize: 18 }}>{'Name.'}</Text>
             <Text>{" "}</Text>
-            <Text style={{ width: '48%', fontSize: 18, textAlign: 'center', fontWeight: 'bold', fontSize: 18 }}>{'Average value.'}</Text>
+            <Text style={{ width: '40%', fontSize: 18, textAlign: 'center', fontWeight: 'bold', fontSize: 18 }}>{'Average value.'}</Text>
             <Text>{" "}</Text>
             <Text style={{ width: '30%', fontSize: 18, textAlign: 'center', fontWeight: 'bold', fontSize: 18 }}>{'Change.'}</Text>
           </View>
@@ -103,7 +119,7 @@ export default class HomeScreen extends React.Component {
           <View>{
             this.state.crypto.map((item, key) => {
               return (
-                <View key={key} style={{ flex: 1, flexDirection: 'row', width: '100%', height: '100%', marginLeft: 10, marginBottom: 15 }}>
+                <View key={key} style={styles.table_body}>
                   <Text style={{ width: '22%', fontSize: 18, textAlign: 'left', fontSize: 16 }}>{item.name}</Text>
                   <Text>{" "}</Text>
                   <Text style={{ width: '54%', fontSize: 18, textAlign: 'center', fontSize: 16 }}>{item.courseAverage}</Text>
@@ -116,13 +132,13 @@ export default class HomeScreen extends React.Component {
 
         <View>
 
-          <Text style={{ fontSize: 28, fontWeight: 'bold', textAlign: 'center' }}>{'Currency'}</Text>
+          <Text style={styles.head_text}>{'Currency'}</Text>
           <Text></Text>
 
-          <View style={{ flex: 1, flexDirection: 'row', width: '100%', height: '100%', marginLeft: 10, marginBottom: 10 }}>
-            <Text style={{ width: '20%', fontSize: 18, textAlign: 'center', fontWeight: 'bold', fontSize: 18 }}>{'Name.'}</Text>
+          <View style={styles.table_head}>
+            <Text style={{ width: '30%', fontSize: 18, textAlign: 'center', fontWeight: 'bold', fontSize: 18 }}>{'Name.'}</Text>
             <Text>{" "}</Text>
-            <Text style={{ width: '48%', fontSize: 18, textAlign: 'center', fontWeight: 'bold', fontSize: 18 }}>{'Average value.'}</Text>
+            <Text style={{ width: '40%', fontSize: 18, textAlign: 'center', fontWeight: 'bold', fontSize: 18 }}>{'Average value.'}</Text>
             <Text>{" "}</Text>
             <Text style={{ width: '30%', fontSize: 18, textAlign: 'center', fontWeight: 'bold', fontSize: 18 }}>{'Change.'}</Text>
           </View>
@@ -130,7 +146,7 @@ export default class HomeScreen extends React.Component {
           <View>{
             this.state.currency.map((item, key) => {
               return (
-                <View key={key} style={{ flex: 1, flexDirection: 'row', width: '100%', height: '100%', marginLeft: 10, marginBottom: 15 }}>
+                <View key={key} style={styles.table_body}>
                   <Text style={{ width: '40%', fontSize: 18, textAlign: 'left', fontSize: 16 }}>{item.currency}</Text>
                   <Text>{" "}</Text>
                   <Text style={{ width: '30%', fontSize: 18, textAlign: 'left', fontSize: 16 }}>{item.averageExchange}</Text>
@@ -144,10 +160,10 @@ export default class HomeScreen extends React.Component {
 
         <View>
 
-          <Text style={{ fontSize: 28, fontWeight: 'bold', textAlign: 'center' }}>{'Poland Exchange'}</Text>
+          <Text style={styles.head_text}>{'Poland Exchange'}</Text>
           <Text></Text>
 
-          <View style={{ flex: 1, flexDirection: 'row', width: '100%', height: '100%', marginLeft: 10, marginBottom: 10 }}>
+          <View style={styles.table_head}>
             <Text style={{ width: '20%', fontSize: 18, textAlign: 'center', fontWeight: 'bold', fontSize: 18 }}>{'Name.'}</Text>
             <Text>{" "}</Text>
             <Text style={{ width: '48%', fontSize: 18, textAlign: 'center', fontWeight: 'bold', fontSize: 18 }}>{'Course.'}</Text>
@@ -158,7 +174,7 @@ export default class HomeScreen extends React.Component {
           <View>{
             this.state.plExchange.map((item, key) => {
               return (
-                <View key={key} style={{ flex: 1, flexDirection: 'row', width: '100%', height: '100%', marginLeft: 10, marginBottom: 15 }}>
+                <View key={key} style={styles.table_body}>
                   <Text style={{ width: '40%', fontSize: 18, textAlign: 'left', fontSize: 16 }}>{item.name}</Text>
                   <Text>{" "}</Text>
                   <Text style={{ width: '30%', fontSize: 18, textAlign: 'left', fontSize: 16 }}>{item.course}</Text>
@@ -173,10 +189,10 @@ export default class HomeScreen extends React.Component {
 
         <View>
 
-          <Text style={{ fontSize: 28, fontWeight: 'bold', textAlign: 'center' }}>{'World Exchange'}</Text>
+          <Text style={styles.head_text}>{'World Exchange'}</Text>
           <Text></Text>
 
-          <View style={{ flex: 1, flexDirection: 'row', width: '100%', height: '100%', marginLeft: 10, marginBottom: 10 }}>
+          <View style={styles.table_head}>
             <Text style={{ width: '20%', fontSize: 18, textAlign: 'center', fontWeight: 'bold', fontSize: 18 }}>{'Name.'}</Text>
             <Text>{" "}</Text>
             <Text style={{ width: '48%', fontSize: 18, textAlign: 'center', fontWeight: 'bold', fontSize: 18 }}>{'Course.'}</Text>
@@ -187,7 +203,7 @@ export default class HomeScreen extends React.Component {
           <View>{
             this.state.wExchange.map((item, key) => {
               return (
-                <View key={key} style={{ flex: 1, flexDirection: 'row', width: '100%', height: '100%', marginLeft: 10, marginBottom: 15 }}>
+                <View key={key} style={styles.table_body}>
                   <Text style={{ width: '40%', fontSize: 18, textAlign: 'left', fontSize: 16 }}>{item.name}</Text>
                   <Text>{" "}</Text>
                   <Text style={{ width: '30%', fontSize: 18, textAlign: 'left', fontSize: 16 }}>{item.course}</Text>
@@ -203,3 +219,9 @@ export default class HomeScreen extends React.Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  head_text: { fontSize: 28, fontWeight: 'bold', textAlign: 'center' },
+  table_head: { flex: 1, flexDirection: 'row', width: '100%', height: '100%', marginBottom: 10, backgroundColor: 'silver' },
+  table_body: { flex: 1, flexDirection: 'row', width: '100%', height: '100%', marginLeft: 10, marginBottom: 15 }
+});

@@ -4,16 +4,7 @@ import { TabView, SceneMap } from 'react-native-tab-view';
 import ExchangePoland from './ExchangePoland';
 import ExchangeWorld from './ExchangeWorld';
 
-const FirstRoute = () => (
-  <View style={[styles.scene]} />
-);
-
-const SecondRoute = () => (
-  <View style={[styles.scene]} />
-);
-
 const initialLayout = { width: Dimensions.get('window').width };
-
 
 export default function ExchangeScreen() {
   const [index, setIndex] = React.useState(0);

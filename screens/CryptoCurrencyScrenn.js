@@ -41,7 +41,7 @@ export default class CryptoCurrencyScreen extends React.Component {
           keyExtractor={item => item.name}
           ListHeaderComponent={() => {
             return (
-              <View style={{ flex: 1, flexDirection: 'row', width: '100%', height: '100%', marginLeft: 10, marginBottom: 10 }}>
+              <View style={{ flex: 1, flexDirection: 'row', width: '100%', height: '100%', marginBottom: 10, backgroundColor:'silver' }}>
                 <Text style={{ width: '20%', fontSize: 18, textAlign: 'center', fontWeight: 'bold', fontSize: 18 }}>{'Name.'}</Text>
                 <Text>{" "}</Text>
                 <Text style={{ width: '48%', fontSize: 18, textAlign: 'center', fontWeight: 'bold', fontSize: 18 }}>{'Average value.'}</Text>

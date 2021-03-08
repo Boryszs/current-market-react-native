@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "marketApp.app"
-               BlueprintName = "marketApp"
-               ReferencedContainer = "container:marketApp.xcodeproj">
+               BuildableName = "MarketApp.app"
+               BlueprintName = "MarketApp"
+               ReferencedContainer = "container:MarketApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "marketAppTests.xctest"
-               BlueprintName = "marketAppTests"
-               ReferencedContainer = "container:marketApp.xcodeproj">
+               BuildableName = "MarketAppTests.xctest"
+               BlueprintName = "MarketAppTests"
+               ReferencedContainer = "container:MarketApp.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "marketApp.app"
-            BlueprintName = "marketApp"
-            ReferencedContainer = "container:marketApp.xcodeproj">
+            BuildableName = "MarketApp.app"
+            BlueprintName = "MarketApp"
+            ReferencedContainer = "container:MarketApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "marketApp.app"
-            BlueprintName = "marketApp"
-            ReferencedContainer = "container:marketApp.xcodeproj">
+            BuildableName = "MarketApp.app"
+            BlueprintName = "MarketApp"
+            ReferencedContainer = "container:MarketApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

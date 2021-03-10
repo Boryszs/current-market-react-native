@@ -120,7 +120,7 @@ export default class HomeScreen extends React.Component {
             this.state.crypto.map((item, key) => {
               return (
                 <View key={key} style={styles.table_body}>
-                  <Text style={{ width: '22%', fontSize: 18, textAlign: 'left', fontSize: 16 }}>{item.name}</Text>
+                  <Text style={{ width: '22%', fontSize: 18, textAlign: 'left', fontWeight: 'bold', fontSize: 16 }}>{item.name}</Text>
                   <Text>{" "}</Text>
                   <Text style={{ width: '54%', fontSize: 18, textAlign: 'center', fontSize: 16 }}>{item.courseAverage}</Text>
                   <Text>{" "}</Text>
@@ -147,7 +147,7 @@ export default class HomeScreen extends React.Component {
             this.state.currency.map((item, key) => {
               return (
                 <View key={key} style={styles.table_body}>
-                  <Text style={{ width: '40%', fontSize: 18, textAlign: 'left', fontSize: 16 }}>{item.currency}</Text>
+                  <Text style={{ width: '40%', fontSize: 18, textAlign: 'left', fontWeight: 'bold', fontSize: 16 }}>{item.currency}</Text>
                   <Text>{" "}</Text>
                   <Text style={{ width: '30%', fontSize: 18, textAlign: 'left', fontSize: 16 }}>{item.averageExchange}</Text>
                   <Text>{" "}</Text>
@@ -175,7 +175,7 @@ export default class HomeScreen extends React.Component {
             this.state.plExchange.map((item, key) => {
               return (
                 <View key={key} style={styles.table_body}>
-                  <Text style={{ width: '40%', fontSize: 18, textAlign: 'left', fontSize: 16 }}>{item.name}</Text>
+                  <Text style={{ width: '40%', fontSize: 18, textAlign: 'left', fontWeight: 'bold', fontSize: 16 }}>{item.name}</Text>
                   <Text>{" "}</Text>
                   <Text style={{ width: '30%', fontSize: 18, textAlign: 'left', fontSize: 16 }}>{item.course}</Text>
                   <Text>{" "}</Text>
@@ -204,7 +204,7 @@ export default class HomeScreen extends React.Component {
             this.state.wExchange.map((item, key) => {
               return (
                 <View key={key} style={styles.table_body}>
-                  <Text style={{ width: '40%', fontSize: 18, textAlign: 'left', fontSize: 16 }}>{item.name}</Text>
+                  <Text style={{ width: '40%', fontSize: 18, textAlign: 'left', fontWeight: 'bold', fontSize: 16 }}>{item.name}</Text>
                   <Text>{" "}</Text>
                   <Text style={{ width: '30%', fontSize: 18, textAlign: 'left', fontSize: 16 }}>{item.course}</Text>
                   <Text>{" "}</Text>

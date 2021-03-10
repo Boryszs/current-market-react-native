@@ -23,7 +23,7 @@ const HomeStackScrenn = ({navigation}) => (
       },
       headerTintColor:"#fff",
       headerTitleStyle:{
-        marginLeft:100,
+        marginLeft:110,
         fontWeight:'bold'
       }
   }}>
@@ -85,7 +85,7 @@ const ExchangeStackkScrenn = ({navigation}) => (
     },
     headerTintColor:"#fff",
     headerTitleStyle:{
-      marginLeft:80,
+      marginLeft:90,
       fontWeight:'bold'
     }
   }}>
@@ -101,7 +101,10 @@ const ExchangeStackkScrenn = ({navigation}) => (
 export default AppContainer = () =>{
 return (
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Home" drawerContentOptions={{
+      <Drawer.Navigator initialRouteName="Home" 
+      unmountOnBlur={true} options={{unmountOnBlur: true}} 
+      drawerContentOptions={{
+          unmountInactiveRoutes: true,
           backgroundColor:'silver',
           activeTintColor: 'blue',
           activeBackgroundColor: 'grey',
@@ -112,10 +115,10 @@ return (
             fontWeight:'bold',
             marginLeft:5
           }}}>
-        <Drawer.Screen name="Home" component={HomeStackScrenn} options={{ title: 'Home', drawerIcon: () =>(<Icon name="md-home" size={26} color="#4F8EF7"/>)}} />
-        <Drawer.Screen name="Crypto Currency" component={CryptoCurrencyStackScrenn} options={{ title: 'Crypto Currency', drawerIcon: () =>(<Icon name="card-outline" size={26} color="#4F8EF7"/>)}}/>
-        <Drawer.Screen name="Currency" component={CurrencyStackScrenn} options={{ title: 'Currency', drawerIcon: () =>(<Icon name="logo-euro" size={26} color="#4F8EF7"/>)}}/>
-        <Drawer.Screen name="Exchange" component={ExchangeStackkScrenn} options={{ title: 'Exchange', drawerIcon: () =>(<Icon name="bar-chart-outline" size={26} color="#4F8EF7"/>)}}/>
+        <Drawer.Screen name={"Home"} component={HomeStackScrenn} unmountOnBlur={true} options={{unmountOnBlur: true, title: 'Home', drawerIcon: () =>(<Icon name="md-home" size={26} color="#4F8EF7"/>)}} />
+        <Drawer.Screen name={"Crypto Currency"} component={CryptoCurrencyStackScrenn} unmountOnBlur={true} options={{unmountOnBlur: true, title: 'Crypto Currency', drawerIcon: () =>(<Icon name="card-outline" size={26} color="#4F8EF7"/>)}}/>
+        <Drawer.Screen name={"Currency"} component={CurrencyStackScrenn} unmountOnBlur={true} options={{unmountOnBlur: true, title: 'Currency', drawerIcon: () =>(<Icon name="logo-euro" size={26} color="#4F8EF7"/>)}}/>
+        <Drawer.Screen name={"Exchange"} component={ExchangeStackkScrenn} unmountOnBlur={true} options={{unmountOnBlur: true, title: 'Exchange', drawerIcon: () =>(<Icon name="bar-chart-outline" size={26} color="#4F8EF7"/>)}}/>
       </Drawer.Navigator>
     </NavigationContainer>
   );

@@ -23,7 +23,6 @@ export default class CurrencyScreen extends React.Component {
 
   async componentDidMount() {
     try {
-      console.log("sd")
       await this.getCurrency();
     } catch (err) {
       console.error(err);

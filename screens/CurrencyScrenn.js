@@ -23,6 +23,7 @@ export default class CurrencyScreen extends React.Component {
 
   async componentDidMount() {
     try {
+      console.log("sd")
       await this.getCurrency();
     } catch (err) {
       console.error(err);
@@ -47,7 +48,7 @@ export default class CurrencyScreen extends React.Component {
 
   filterSearch(text) {
     if (this.state.search.length > text.length) {
-      this.setState({ search: text, currency: this.state.tmpCurrency })
+     this.setState({ search: text, currency: this.state.tmpCurrency })
     }
     else {
       const data = this.state.currency;
@@ -63,6 +64,9 @@ export default class CurrencyScreen extends React.Component {
     }
   }
 
+  componentWillUnmount = () =>{
+      this.state = null;
+  }
 
   render() {
     return (

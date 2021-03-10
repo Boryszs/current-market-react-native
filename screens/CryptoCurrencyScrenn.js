@@ -7,7 +7,6 @@ export default class CryptoCurrencyScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: false,
       crypto: [],
       tmpCrypt: [],
       search: '',
@@ -63,6 +62,8 @@ export default class CryptoCurrencyScreen extends React.Component {
       })
     }
   }
+
+
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -76,7 +77,6 @@ export default class CryptoCurrencyScreen extends React.Component {
           />
         </View>
         <View style={styles.container}>
-
           <FlatList
             data={this.state.crypto}
             keyExtractor={item => item.name}

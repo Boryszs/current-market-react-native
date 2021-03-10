@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Button, View, Text, FlatList, SafeAreaView, ScrollView, RefreshControl, StyleSheet} from 'react-native';
+import { SearchBar } from 'react-native-elements';
+import NetInfo from "@react-native-community/netinfo";
+import { Button, View, Text, FlatList, SafeAreaView, ScrollView, RefreshControl, StyleSheet } from 'react-native';
 
 export default class HomeScreen extends React.Component {
 
@@ -14,12 +16,12 @@ export default class HomeScreen extends React.Component {
     }
   }
 
-   handleRefresh = () => {
+  handleRefresh = () => {
     this.setState({ isFetching: true }, () => {
-       this.getCryptoCurrency();
-       this.getCurrency();
-       this.getPlExchamge();
-       this.getWExchamge();
+      this.getCryptoCurrency();
+      this.getCurrency();
+      this.getPlExchamge();
+      this.getWExchamge();
     });
     this.setState({ isFetching: false });
   };
@@ -36,63 +38,79 @@ export default class HomeScreen extends React.Component {
   }
 
   async getCryptoCurrency() {
-    await fetch('http://192.168.56.1:8080/crypt-currency/important/5', {
-      method: 'GET'
-    })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({
-          crypto: responseJson
+   await NetInfo.fetch().done((state) => {
+      if (state.isConnected) {
+         fetch('http://192.168.56.1:8080/crypt-currency/important/5', {
+          method: 'GET'
         })
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+          .then((response) => response.json())
+          .then((responseJson) => {
+            this.setState({
+              crypto: responseJson
+            })
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    });
   }
 
   async getCurrency() {
-    await fetch('http://192.168.56.1:8080/currency/all/5', {
-      method: 'GET'
-    })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({
-          currency: responseJson
+   await NetInfo.fetch().done((state) => {
+      if (state.isConnected) {
+         fetch('http://192.168.56.1:8080/currency/all/5', {
+          method: 'GET'
         })
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+          .then((response) => response.json())
+          .then((responseJson) => {
+            this.setState({
+              currency: responseJson
+            })
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    });
   }
 
   async getPlExchamge() {
-    await fetch('http://192.168.56.1:8080/exchange/pl/all/5', {
-      method: 'GET'
-    })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({
-          plExchange: responseJson
+   await NetInfo.fetch().done((state) => {
+      if (state.isConnected) {
+         fetch('http://192.168.56.1:8080/exchange/pl/all/5', {
+          method: 'GET'
         })
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+          .then((response) => response.json())
+          .then((responseJson) => {
+            this.setState({
+              plExchange: responseJson
+            })
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    });
   }
 
   async getWExchamge() {
-    await fetch('http://192.168.56.1:8080/exchange/w/all/5', {
-      method: 'GET'
-    })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({
-          wExchange: responseJson
+   await NetInfo.fetch().done((state) => {
+      if (state.isConnected) {
+         fetch('http://192.168.56.1:8080/exchange/w/all/5', {
+          method: 'GET'
         })
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+          .then((response) => response.json())
+          .then((responseJson) => {
+            this.setState({
+              wExchange: responseJson
+            })
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    });
   }
 
   render() {
@@ -124,7 +142,7 @@ export default class HomeScreen extends React.Component {
                   <Text>{" "}</Text>
                   <Text style={{ width: '54%', fontSize: 18, textAlign: 'center', fontSize: 16 }}>{item.courseAverage}</Text>
                   <Text>{" "}</Text>
-                  <Text style={{ width: '24%', fontSize: 18, textAlign: 'left', fontSize: 16, fontWeight:'700',color: Number(item.change.replace("%","").replace(",",".")) > 0.0 ? 'green':'red'}}>{item.change}</Text>
+                  <Text style={{ width: '24%', fontSize: 18, textAlign: 'left', fontSize: 16, fontWeight: '700', color: Number(item.change.replace("%", "").replace(",", ".")) > 0.0 ? 'green' : 'red' }}>{item.change}</Text>
                 </View>)
             })}
           </View>
@@ -150,7 +168,7 @@ export default class HomeScreen extends React.Component {
                   <Text>{" "}</Text>
                   <Text style={{ width: '30%', fontSize: 18, textAlign: 'left', fontSize: 16 }}>{item.averageExchange}</Text>
                   <Text>{" "}</Text>
-                  <Text style={{ width: '30%', fontSize: 18, textAlign: 'center', fontSize: 16, fontWeight:'700',color: Number(item.percentageChange.replace("%","").replace(",",".")) > 0.0 ? 'green':'red'}}>{item.percentageChange}</Text>
+                  <Text style={{ width: '30%', fontSize: 18, textAlign: 'center', fontSize: 16, fontWeight: '700', color: Number(item.percentageChange.replace("%", "").replace(",", ".")) > 0.0 ? 'green' : 'red' }}>{item.percentageChange}</Text>
                 </View>)
             })}
           </View>
@@ -178,7 +196,7 @@ export default class HomeScreen extends React.Component {
                   <Text>{" "}</Text>
                   <Text style={{ width: '30%', fontSize: 18, textAlign: 'left', fontSize: 16 }}>{item.course}</Text>
                   <Text>{" "}</Text>
-                  <Text style={{ width: '30%', fontSize: 18, textAlign: 'center', fontSize: 16, fontWeight:'700',color: Number(item.change.replace("%","").replace(",",".")) > 0.0 ? 'green':'red' }}>{item.change+'%'}</Text>
+                  <Text style={{ width: '30%', fontSize: 18, textAlign: 'center', fontSize: 16, fontWeight: '700', color: Number(item.change.replace("%", "").replace(",", ".")) > 0.0 ? 'green' : 'red' }}>{item.change + '%'}</Text>
                 </View>)
             })}
           </View>
@@ -207,7 +225,7 @@ export default class HomeScreen extends React.Component {
                   <Text>{" "}</Text>
                   <Text style={{ width: '30%', fontSize: 18, textAlign: 'left', fontSize: 16 }}>{item.course}</Text>
                   <Text>{" "}</Text>
-                  <Text style={{ width: '30%', fontSize: 18, textAlign: 'center', fontSize: 16, fontWeight:'700',color: Number(item.change.replace("%","").replace(",",".")) > 0.0 ? 'green':'red' }}>{item.change+'%'}</Text>
+                  <Text style={{ width: '30%', fontSize: 18, textAlign: 'center', fontSize: 16, fontWeight: '700', color: Number(item.change.replace("%", "").replace(",", ".")) > 0.0 ? 'green' : 'red' }}>{item.change + '%'}</Text>
                 </View>)
             })}
           </View>

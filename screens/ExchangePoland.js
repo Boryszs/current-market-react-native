@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { SearchBar } from 'react-native-elements';
+import NetInfo from "@react-native-community/netinfo";
 import { Button, View, Text, FlatList, SafeAreaView, ScrollView, StyleSheet, RefreshControl } from 'react-native';
 
 export default class CurrencyScreen extends React.Component {
@@ -30,19 +31,23 @@ export default class CurrencyScreen extends React.Component {
     }
 
     async getPlExchamge() {
-        await fetch('http://192.168.56.1:8080/exchange/pl/all', {
-            method: 'GET'
-        })
-            .then((response) => response.json())
-            .then((responseJson) => {
-                this.setState({
-                    plExchange: responseJson,
-                    tmpPlExchange: responseJson
+       await NetInfo.fetch().done((state) => {
+            if (state.isConnected) {
+                 fetch('http://192.168.56.1:8080/exchange/pl/all', {
+                    method: 'GET'
                 })
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+                    .then((response) => response.json())
+                    .then((responseJson) => {
+                        this.setState({
+                            plExchange: responseJson,
+                            tmpPlExchange: responseJson
+                        })
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            }
+        });
     }
 
     filterSearch(text) {
@@ -102,7 +107,7 @@ export default class CurrencyScreen extends React.Component {
                                     <Text>{" "}</Text>
                                     <Text style={{ width: '30%', fontSize: 18, textAlign: 'left', fontSize: 16 }}>{item.course}</Text>
                                     <Text>{" "}</Text>
-                                    <Text style={{ width: '30%', fontSize: 18, textAlign: 'center', fontSize: 16, fontWeight:'700', color: Number(item.change.replace("%","").replace(",",".")) > 0.0 ? 'green':'red' }}>{item.change+'%'}</Text>
+                                    <Text style={{ width: '30%', fontSize: 18, textAlign: 'center', fontSize: 16, fontWeight: '700', color: Number(item.change.replace("%", "").replace(",", ".")) > 0.0 ? 'green' : 'red' }}>{item.change + '%'}</Text>
                                 </View>
                             )
                         }}

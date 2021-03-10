@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { SearchBar } from 'react-native-elements';
+import NetInfo from "@react-native-community/netinfo";
 import { Button, View, Text, FlatList, SafeAreaView, ScrollView, StyleSheet, RefreshControl } from 'react-native';
 
 export default class CurrencyScreen extends React.Component {
@@ -30,24 +31,28 @@ export default class CurrencyScreen extends React.Component {
   }
 
   async getCurrency() {
-    await fetch('http://192.168.56.1:8080/currency/all', {
-      method: 'GET'
-    })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({
-          currency: responseJson,
-          tmpCurrency:responseJson
+   await NetInfo.fetch().done((state) => {
+      if (state.isConnected) {
+         fetch('http://192.168.56.1:8080/currency/all', {
+          method: 'GET'
         })
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+          .then((response) => response.json())
+          .then((responseJson) => {
+            this.setState({
+              currency: responseJson,
+              tmpCurrency: responseJson
+            })
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    });
   }
 
   filterSearch(text) {
     if (this.state.search.length > text.length) {
-     this.setState({ search: text, currency: this.state.tmpCurrency })
+      this.setState({ search: text, currency: this.state.tmpCurrency })
     }
     else {
       const data = this.state.currency;
@@ -103,7 +108,7 @@ export default class CurrencyScreen extends React.Component {
                   <Text>{" "}</Text>
                   <Text style={{ width: '30%', fontSize: 18, textAlign: 'left', fontSize: 16 }}>{item.averageExchange}</Text>
                   <Text>{" "}</Text>
-                  <Text style={{ width: '30%', fontSize: 18, textAlign: 'center', fontSize: 16, fontWeight:'700',color: Number(item.percentageChange.replace("%","").replace(",",".")) > 0.0 ? 'green':'red' }}>{item.percentageChange}</Text>
+                  <Text style={{ width: '30%', fontSize: 18, textAlign: 'center', fontSize: 16, fontWeight: '700', color: Number(item.percentageChange.replace("%", "").replace(",", ".")) > 0.0 ? 'green' : 'red' }}>{item.percentageChange}</Text>
                 </View>
               )
             }}

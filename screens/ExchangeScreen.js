@@ -29,7 +29,7 @@ export default function ExchangeScreen() {
         <Text style={{ fontWeight:'bold', color:'white', fontSize:16, margin: 8 }}>
             {route.title}
         </Text>
-    )}/>} // <-- add this line
+    )}/>} 
     />
   );
 }

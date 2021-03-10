@@ -124,7 +124,7 @@ export default class HomeScreen extends React.Component {
                   <Text>{" "}</Text>
                   <Text style={{ width: '54%', fontSize: 18, textAlign: 'center', fontSize: 16 }}>{item.courseAverage}</Text>
                   <Text>{" "}</Text>
-                  <Text style={{ width: '24%', fontSize: 18, textAlign: 'left', fontSize: 16 }}>{item.change}</Text>
+                  <Text style={{ width: '24%', fontSize: 18, textAlign: 'left', fontSize: 16, fontWeight:'700',color: Number(item.change.replace("%","").replace(",",".")) > 0.0 ? 'green':'red'}}>{item.change}</Text>
                 </View>)
             })}
           </View>
@@ -142,7 +142,6 @@ export default class HomeScreen extends React.Component {
             <Text>{" "}</Text>
             <Text style={{ width: '30%', fontSize: 18, textAlign: 'center', fontWeight: 'bold', fontSize: 18 }}>{'Change.'}</Text>
           </View>
-
           <View>{
             this.state.currency.map((item, key) => {
               return (
@@ -151,7 +150,7 @@ export default class HomeScreen extends React.Component {
                   <Text>{" "}</Text>
                   <Text style={{ width: '30%', fontSize: 18, textAlign: 'left', fontSize: 16 }}>{item.averageExchange}</Text>
                   <Text>{" "}</Text>
-                  <Text style={{ width: '30%', fontSize: 18, textAlign: 'center', fontSize: 16 }}>{item.percentageChange}</Text>
+                  <Text style={{ width: '30%', fontSize: 18, textAlign: 'center', fontSize: 16, fontWeight:'700',color: Number(item.percentageChange.replace("%","").replace(",",".")) > 0.0 ? 'green':'red'}}>{item.percentageChange}</Text>
                 </View>)
             })}
           </View>
@@ -179,7 +178,7 @@ export default class HomeScreen extends React.Component {
                   <Text>{" "}</Text>
                   <Text style={{ width: '30%', fontSize: 18, textAlign: 'left', fontSize: 16 }}>{item.course}</Text>
                   <Text>{" "}</Text>
-                  <Text style={{ width: '30%', fontSize: 18, textAlign: 'center', fontSize: 16 }}>{item.change}</Text>
+                  <Text style={{ width: '30%', fontSize: 18, textAlign: 'center', fontSize: 16, fontWeight:'700',color: Number(item.change.replace("%","").replace(",",".")) > 0.0 ? 'green':'red' }}>{item.change+'%'}</Text>
                 </View>)
             })}
           </View>
@@ -208,7 +207,7 @@ export default class HomeScreen extends React.Component {
                   <Text>{" "}</Text>
                   <Text style={{ width: '30%', fontSize: 18, textAlign: 'left', fontSize: 16 }}>{item.course}</Text>
                   <Text>{" "}</Text>
-                  <Text style={{ width: '30%', fontSize: 18, textAlign: 'center', fontSize: 16 }}>{item.change}</Text>
+                  <Text style={{ width: '30%', fontSize: 18, textAlign: 'center', fontSize: 16, fontWeight:'700',color: Number(item.change.replace("%","").replace(",",".")) > 0.0 ? 'green':'red' }}>{item.change+'%'}</Text>
                 </View>)
             })}
           </View>

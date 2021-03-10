@@ -66,7 +66,7 @@ export default class CurrencyScreen extends React.Component {
                     renderItem={({ item, index }) => {
                         return (
                             <View key={index} style={styles.table_body}>
-                                <Text style={{ width: '40%', fontSize: 18, textAlign: 'left', fontSize: 16 }}>{item.name}</Text>
+                                <Text style={{ width: '40%', fontSize: 18, textAlign: 'left', fontWeight: 'bold', fontSize: 16 }}>{item.name}</Text>
                                 <Text>{" "}</Text>
                                 <Text style={{ width: '30%', fontSize: 18, textAlign: 'left', fontSize: 16 }}>{item.course}</Text>
                                 <Text>{" "}</Text>

@@ -106,7 +106,7 @@ export default class CurrencyScreen extends React.Component {
                 <View key={index} style={styles.table_body}>
                   <Text style={{ width: '40%', fontSize: 18, textAlign: 'left', fontWeight: 'bold', fontSize: 16 }}>{item.currency != "" ? item.currency : item.country}</Text>
                   <Text>{" "}</Text>
-                  <Text style={{ width: '30%', fontSize: 18, textAlign: 'left', fontSize: 16 }}>{item.averageExchange}</Text>
+                  <Text style={{ width: '30%', fontSize: 18, textAlign: 'left', fontSize: 16, fontWeight:'700'  }}>{item.averageExchange}</Text>
                   <Text>{" "}</Text>
                   <Text style={{ width: '30%', fontSize: 18, textAlign: 'center', fontSize: 16, fontWeight: '700', color: Number(item.percentageChange.replace("%", "").replace(",", ".")) > 0.0 ? 'green' : 'red' }}>{item.percentageChange}</Text>
                 </View>

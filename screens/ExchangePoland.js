@@ -33,25 +33,26 @@ export default class CurrencyScreen extends React.Component {
     }
 
     async getPlExchamge() {
-        if (this.state.isMounted) {
-            await NetInfo.fetch().done((state) => {
-                if (state.isConnected) {
-                    fetch('http://192.168.56.1:8080/exchange/pl/all', {
-                        method: 'GET'
-                    })
-                        .then((response) => response.json())
-                        .then((responseJson) => {
+
+        await NetInfo.fetch().done((state) => {
+            if (state.isConnected) {
+                fetch('http://192.168.56.1:8080/exchange/pl/all', {
+                    method: 'GET'
+                })
+                    .then((response) => response.json())
+                    .then((responseJson) => {
+                        if (this.state.isMounted) {
                             this.setState({
                                 plExchange: responseJson,
                                 tmpPlExchange: responseJson
                             })
-                        })
-                        .catch((error) => {
-                            console.error(error);
-                        });
-                }
-            });
-        }
+                        }
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            }
+        });
     }
 
     filterSearch(text) {

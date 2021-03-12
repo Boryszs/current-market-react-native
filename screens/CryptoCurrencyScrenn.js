@@ -33,7 +33,6 @@ export default class CryptoCurrencyScreen extends React.Component {
   }
 
   async getCryptoCurrency() {
-    if (this.state.isMounted) {
       await NetInfo.fetch().done((state) => {
         if (state.isConnected) {
           fetch('http://192.168.56.1:8080/crypt-currency/important', {
@@ -41,17 +40,18 @@ export default class CryptoCurrencyScreen extends React.Component {
           })
             .then((response) => response.json())
             .then((responseJson) => {
-              this.setState({
-                crypto: responseJson,
-                tmpCrypt: responseJson
-              })
+              if (this.state.isMounted) {
+                this.setState({
+                  crypto: responseJson,
+                  tmpCrypt: responseJson
+                })
+              }
             })
             .catch((error) => {
               console.error(error);
             });
         }
       });
-    }
   }
 
   filterSearch(text) {

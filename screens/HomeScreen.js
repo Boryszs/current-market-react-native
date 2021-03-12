@@ -40,87 +40,90 @@ export default class HomeScreen extends React.Component {
   }
 
   async getCryptoCurrency() {
-    if (this.state.isMounted) {
-      await NetInfo.fetch().done((state) => {
-        if (state.isConnected) {
-          fetch('http://192.168.56.1:8080/crypt-currency/important/5', {
-            method: 'GET'
-          })
-            .then((response) => response.json())
-            .then((responseJson) => {
+    await NetInfo.fetch().done((state) => {
+      if (state.isConnected) {
+        fetch('http://192.168.56.1:8080/crypt-currency/important/5', {
+          method: 'GET'
+        })
+          .then((response) => response.json())
+          .then((responseJson) => {
+            if (this.state.isMounted) {
               this.setState({
                 crypto: responseJson
               })
-            })
-            .catch((error) => {
-              console.error(error);
-            });
-        }
-      });
-    }
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    });
   }
 
   async getCurrency() {
-    if (this.state.isMounted) {
-      await NetInfo.fetch().done((state) => {
-        if (state.isConnected) {
-          fetch('http://192.168.56.1:8080/currency/all/5', {
-            method: 'GET'
-          })
-            .then((response) => response.json())
-            .then((responseJson) => {
+
+    await NetInfo.fetch().done((state) => {
+      if (state.isConnected) {
+        fetch('http://192.168.56.1:8080/currency/all/5', {
+          method: 'GET'
+        })
+          .then((response) => response.json())
+          .then((responseJson) => {
+            if (this.state.isMounted) {
               this.setState({
                 currency: responseJson
               })
-            })
-            .catch((error) => {
-              console.error(error);
-            });
-        }
-      });
-    }
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    });
   }
 
   async getPlExchamge() {
-    if (this.state.isMounted) {
-      await NetInfo.fetch().done((state) => {
-        if (state.isConnected) {
-          fetch('http://192.168.56.1:8080/exchange/pl/all/5', {
-            method: 'GET'
-          })
-            .then((response) => response.json())
-            .then((responseJson) => {
+
+    await NetInfo.fetch().done((state) => {
+      if (state.isConnected) {
+        fetch('http://192.168.56.1:8080/exchange/pl/all/5', {
+          method: 'GET'
+        })
+          .then((response) => response.json())
+          .then((responseJson) => {
+            if (this.state.isMounted) {
               this.setState({
                 plExchange: responseJson
               })
-            })
-            .catch((error) => {
-              console.error(error);
-            });
-        }
-      });
-    }
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    });
   }
 
   async getWExchamge() {
-    if (this.state.isMounted) {
-      await NetInfo.fetch().done((state) => {
-        if (state.isConnected) {
-          fetch('http://192.168.56.1:8080/exchange/w/all/5', {
-            method: 'GET'
-          })
-            .then((response) => response.json())
-            .then((responseJson) => {
+
+    await NetInfo.fetch().done((state) => {
+      if (state.isConnected) {
+        fetch('http://192.168.56.1:8080/exchange/w/all/5', {
+          method: 'GET'
+        })
+          .then((response) => response.json())
+          .then((responseJson) => {
+            if (this.state.isMounted) {
               this.setState({
                 wExchange: responseJson
               })
-            })
-            .catch((error) => {
-              console.error(error);
-            });
-        }
-      });
-    }
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    });
   }
 
   componentWillUnmount() {

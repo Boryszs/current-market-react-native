@@ -11,7 +11,8 @@ export default class ExchangeWorld extends React.Component {
       isFetching: false,
       wExchange: [],
       tmpWExchange: [],
-      search: ''
+      search: '',
+      isMounted: false
     }
   }
 
@@ -24,6 +25,7 @@ export default class ExchangeWorld extends React.Component {
 
   async componentDidMount() {
     try {
+      this.setState({ isMounted: true })
       await this.getWExchamge();
     } catch (err) {
       console.error(err);
@@ -31,23 +33,25 @@ export default class ExchangeWorld extends React.Component {
   }
 
   async getWExchamge() {
-   await NetInfo.fetch().done((state) => {
-      if (state.isConnected) {
-         fetch('http://192.168.56.1:8080/exchange/w/all', {
-          method: 'GET'
-        })
-          .then((response) => response.json())
-          .then((responseJson) => {
-            this.setState({
-              wExchange: responseJson,
-              tmpWExchange: responseJson
-            })
+    if (this.state.isMounted) {
+      await NetInfo.fetch().done((state) => {
+        if (state.isConnected) {
+          fetch('http://192.168.56.1:8080/exchange/w/all', {
+            method: 'GET'
           })
-          .catch((error) => {
-            console.error(error);
-          });
-      }
-    });
+            .then((response) => response.json())
+            .then((responseJson) => {
+              this.setState({
+                wExchange: responseJson,
+                tmpWExchange: responseJson
+              })
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        }
+      });
+    }
   }
 
   filterSearch(text) {
@@ -66,6 +70,10 @@ export default class ExchangeWorld extends React.Component {
         search: text
       })
     }
+  }
+
+  componentWillUnmount() {
+    this.setState({ isMounted: false })
   }
 
   render() {
@@ -105,7 +113,7 @@ export default class ExchangeWorld extends React.Component {
                 <View key={index} style={styles.table_body}>
                   <Text style={{ width: '40%', fontSize: 18, textAlign: 'left', fontWeight: 'bold', fontSize: 16 }}>{item.name}</Text>
                   <Text>{" "}</Text>
-                  <Text style={{ width: '30%', fontSize: 18, textAlign: 'left', fontSize: 16, fontWeight:'700'  }}>{item.course}</Text>
+                  <Text style={{ width: '30%', fontSize: 18, textAlign: 'left', fontSize: 16, fontWeight: '700' }}>{item.course}</Text>
                   <Text>{" "}</Text>
                   <Text style={{ width: '30%', fontSize: 18, textAlign: 'center', fontSize: 16, fontWeight: '700', color: Number(item.change.replace("%", "").replace(",", ".")) > 0.0 ? 'green' : 'red' }}>{item.change + '%'}</Text>
                 </View>

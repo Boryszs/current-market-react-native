@@ -13,6 +13,7 @@ export default class HomeScreen extends React.Component {
       plExchange: [],
       wExchange: [],
       isFetching: false,
+      isMounted: false
     }
   }
 
@@ -28,6 +29,7 @@ export default class HomeScreen extends React.Component {
 
   async componentDidMount() {
     try {
+      this.setState({ isMounted: true })
       await this.getCryptoCurrency();
       await this.getCurrency();
       await this.getPlExchamge();
@@ -38,79 +40,91 @@ export default class HomeScreen extends React.Component {
   }
 
   async getCryptoCurrency() {
-   await NetInfo.fetch().done((state) => {
-      if (state.isConnected) {
-         fetch('http://192.168.56.1:8080/crypt-currency/important/5', {
-          method: 'GET'
-        })
-          .then((response) => response.json())
-          .then((responseJson) => {
-            this.setState({
-              crypto: responseJson
-            })
+    if (this.state.isMounted) {
+      await NetInfo.fetch().done((state) => {
+        if (state.isConnected) {
+          fetch('http://192.168.56.1:8080/crypt-currency/important/5', {
+            method: 'GET'
           })
-          .catch((error) => {
-            console.error(error);
-          });
-      }
-    });
+            .then((response) => response.json())
+            .then((responseJson) => {
+              this.setState({
+                crypto: responseJson
+              })
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        }
+      });
+    }
   }
 
   async getCurrency() {
-   await NetInfo.fetch().done((state) => {
-      if (state.isConnected) {
-         fetch('http://192.168.56.1:8080/currency/all/5', {
-          method: 'GET'
-        })
-          .then((response) => response.json())
-          .then((responseJson) => {
-            this.setState({
-              currency: responseJson
-            })
+    if (this.state.isMounted) {
+      await NetInfo.fetch().done((state) => {
+        if (state.isConnected) {
+          fetch('http://192.168.56.1:8080/currency/all/5', {
+            method: 'GET'
           })
-          .catch((error) => {
-            console.error(error);
-          });
-      }
-    });
+            .then((response) => response.json())
+            .then((responseJson) => {
+              this.setState({
+                currency: responseJson
+              })
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        }
+      });
+    }
   }
 
   async getPlExchamge() {
-   await NetInfo.fetch().done((state) => {
-      if (state.isConnected) {
-         fetch('http://192.168.56.1:8080/exchange/pl/all/5', {
-          method: 'GET'
-        })
-          .then((response) => response.json())
-          .then((responseJson) => {
-            this.setState({
-              plExchange: responseJson
-            })
+    if (this.state.isMounted) {
+      await NetInfo.fetch().done((state) => {
+        if (state.isConnected) {
+          fetch('http://192.168.56.1:8080/exchange/pl/all/5', {
+            method: 'GET'
           })
-          .catch((error) => {
-            console.error(error);
-          });
-      }
-    });
+            .then((response) => response.json())
+            .then((responseJson) => {
+              this.setState({
+                plExchange: responseJson
+              })
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        }
+      });
+    }
   }
 
   async getWExchamge() {
-   await NetInfo.fetch().done((state) => {
-      if (state.isConnected) {
-         fetch('http://192.168.56.1:8080/exchange/w/all/5', {
-          method: 'GET'
-        })
-          .then((response) => response.json())
-          .then((responseJson) => {
-            this.setState({
-              wExchange: responseJson
-            })
+    if (this.state.isMounted) {
+      await NetInfo.fetch().done((state) => {
+        if (state.isConnected) {
+          fetch('http://192.168.56.1:8080/exchange/w/all/5', {
+            method: 'GET'
           })
-          .catch((error) => {
-            console.error(error);
-          });
-      }
-    });
+            .then((response) => response.json())
+            .then((responseJson) => {
+              this.setState({
+                wExchange: responseJson
+              })
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        }
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    this.setState({ isMounted: false })
   }
 
   render() {
@@ -140,7 +154,7 @@ export default class HomeScreen extends React.Component {
                 <View key={key} style={styles.table_body}>
                   <Text style={{ width: '22%', fontSize: 18, textAlign: 'left', fontWeight: 'bold', fontSize: 16 }}>{item.name}</Text>
                   <Text>{" "}</Text>
-                  <Text style={{ width: '54%', fontSize: 18, textAlign: 'center', fontSize: 16, fontWeight:'700' }}>{item.courseAverage}</Text>
+                  <Text style={{ width: '54%', fontSize: 18, textAlign: 'center', fontSize: 16, fontWeight: '700' }}>{item.courseAverage}</Text>
                   <Text>{" "}</Text>
                   <Text style={{ width: '24%', fontSize: 18, textAlign: 'left', fontSize: 16, fontWeight: '700', color: Number(item.change.replace("%", "").replace(",", ".")) > 0.0 ? 'green' : 'red' }}>{item.change}</Text>
                 </View>)
@@ -166,7 +180,7 @@ export default class HomeScreen extends React.Component {
                 <View key={key} style={styles.table_body}>
                   <Text style={{ width: '40%', fontSize: 18, textAlign: 'left', fontWeight: 'bold', fontSize: 16 }}>{item.currency}</Text>
                   <Text>{" "}</Text>
-                  <Text style={{ width: '30%', fontSize: 18, textAlign: 'left', fontSize: 16, fontWeight:'700'  }}>{item.averageExchange}</Text>
+                  <Text style={{ width: '30%', fontSize: 18, textAlign: 'left', fontSize: 16, fontWeight: '700' }}>{item.averageExchange}</Text>
                   <Text>{" "}</Text>
                   <Text style={{ width: '30%', fontSize: 18, textAlign: 'center', fontSize: 16, fontWeight: '700', color: Number(item.percentageChange.replace("%", "").replace(",", ".")) > 0.0 ? 'green' : 'red' }}>{item.percentageChange}</Text>
                 </View>)
@@ -194,7 +208,7 @@ export default class HomeScreen extends React.Component {
                 <View key={key} style={styles.table_body}>
                   <Text style={{ width: '40%', fontSize: 18, textAlign: 'left', fontWeight: 'bold', fontSize: 16 }}>{item.name}</Text>
                   <Text>{" "}</Text>
-                  <Text style={{ width: '30%', fontSize: 18, textAlign: 'left', fontSize: 16, fontWeight:'700'  }}>{item.course}</Text>
+                  <Text style={{ width: '30%', fontSize: 18, textAlign: 'left', fontSize: 16, fontWeight: '700' }}>{item.course}</Text>
                   <Text>{" "}</Text>
                   <Text style={{ width: '30%', fontSize: 18, textAlign: 'center', fontSize: 16, fontWeight: '700', color: Number(item.change.replace("%", "").replace(",", ".")) > 0.0 ? 'green' : 'red' }}>{item.change + '%'}</Text>
                 </View>)
@@ -223,7 +237,7 @@ export default class HomeScreen extends React.Component {
                 <View key={key} style={styles.table_body}>
                   <Text style={{ width: '40%', fontSize: 18, textAlign: 'left', fontWeight: 'bold', fontSize: 16 }}>{item.name}</Text>
                   <Text>{" "}</Text>
-                  <Text style={{ width: '30%', fontSize: 18, textAlign: 'left', fontSize: 16, fontWeight:'700'  }}>{item.course}</Text>
+                  <Text style={{ width: '30%', fontSize: 18, textAlign: 'left', fontSize: 16, fontWeight: '700' }}>{item.course}</Text>
                   <Text>{" "}</Text>
                   <Text style={{ width: '30%', fontSize: 18, textAlign: 'center', fontSize: 16, fontWeight: '700', color: Number(item.change.replace("%", "").replace(",", ".")) > 0.0 ? 'green' : 'red' }}>{item.change + '%'}</Text>
                 </View>)

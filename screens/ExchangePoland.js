@@ -11,7 +11,8 @@ export default class CurrencyScreen extends React.Component {
             plExchange: [],
             tmpPlExchange: [],
             search: '',
-            isFetching: false
+            isFetching: false,
+            isMounted: false
         }
     }
 
@@ -24,6 +25,7 @@ export default class CurrencyScreen extends React.Component {
 
     async componentDidMount() {
         try {
+            this.setState({ isMounted: true })
             await this.getPlExchamge();
         } catch (err) {
             console.error(err);
@@ -31,23 +33,25 @@ export default class CurrencyScreen extends React.Component {
     }
 
     async getPlExchamge() {
-       await NetInfo.fetch().done((state) => {
-            if (state.isConnected) {
-                 fetch('http://192.168.56.1:8080/exchange/pl/all', {
-                    method: 'GET'
-                })
-                    .then((response) => response.json())
-                    .then((responseJson) => {
-                        this.setState({
-                            plExchange: responseJson,
-                            tmpPlExchange: responseJson
-                        })
+        if (this.state.isMounted) {
+            await NetInfo.fetch().done((state) => {
+                if (state.isConnected) {
+                    fetch('http://192.168.56.1:8080/exchange/pl/all', {
+                        method: 'GET'
                     })
-                    .catch((error) => {
-                        console.error(error);
-                    });
-            }
-        });
+                        .then((response) => response.json())
+                        .then((responseJson) => {
+                            this.setState({
+                                plExchange: responseJson,
+                                tmpPlExchange: responseJson
+                            })
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                        });
+                }
+            });
+        }
     }
 
     filterSearch(text) {
@@ -67,6 +71,12 @@ export default class CurrencyScreen extends React.Component {
             })
         }
     }
+
+
+    componentWillUnmount() {
+        this.setState({ isMounted: false })
+    }
+
 
     render() {
         return (
@@ -105,7 +115,7 @@ export default class CurrencyScreen extends React.Component {
                                 <View key={index} style={styles.table_body}>
                                     <Text style={{ width: '40%', fontSize: 18, textAlign: 'left', fontWeight: 'bold', fontSize: 16 }}>{item.name}</Text>
                                     <Text>{" "}</Text>
-                                    <Text style={{ width: '30%', fontSize: 18, textAlign: 'left', fontSize: 16, fontWeight:'700'  }}>{item.course}</Text>
+                                    <Text style={{ width: '30%', fontSize: 18, textAlign: 'left', fontSize: 16, fontWeight: '700' }}>{item.course}</Text>
                                     <Text>{" "}</Text>
                                     <Text style={{ width: '30%', fontSize: 18, textAlign: 'center', fontSize: 16, fontWeight: '700', color: Number(item.change.replace("%", "").replace(",", ".")) > 0.0 ? 'green' : 'red' }}>{item.change + '%'}</Text>
                                 </View>

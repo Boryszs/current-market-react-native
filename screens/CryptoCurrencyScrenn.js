@@ -11,7 +11,8 @@ export default class CryptoCurrencyScreen extends React.Component {
       crypto: [],
       tmpCrypt: [],
       search: '',
-      isFetching: false
+      isFetching: false,
+      isMounted: false
     }
   }
 
@@ -24,6 +25,7 @@ export default class CryptoCurrencyScreen extends React.Component {
 
   async componentDidMount() {
     try {
+      this.setState({ isMounted: true })
       await this.getCryptoCurrency();
     } catch (err) {
       console.error(err);
@@ -31,23 +33,25 @@ export default class CryptoCurrencyScreen extends React.Component {
   }
 
   async getCryptoCurrency() {
-   await NetInfo.fetch().done((state) => {
-      if (state.isConnected) {
-         fetch('http://192.168.56.1:8080/crypt-currency/important', {
-          method: 'GET'
-        })
-          .then((response) => response.json())
-          .then((responseJson) => {
-            this.setState({
-              crypto: responseJson,
-              tmpCrypt: responseJson
-            })
+    if (this.state.isMounted) {
+      await NetInfo.fetch().done((state) => {
+        if (state.isConnected) {
+          fetch('http://192.168.56.1:8080/crypt-currency/important', {
+            method: 'GET'
           })
-          .catch((error) => {
-            console.error(error);
-          });
-      }
-    });
+            .then((response) => response.json())
+            .then((responseJson) => {
+              this.setState({
+                crypto: responseJson,
+                tmpCrypt: responseJson
+              })
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        }
+      });
+    }
   }
 
   filterSearch(text) {
@@ -68,6 +72,9 @@ export default class CryptoCurrencyScreen extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    this.setState({ isMounted: false })
+  }
 
   render() {
     return (
@@ -106,7 +113,7 @@ export default class CryptoCurrencyScreen extends React.Component {
                 <View key={index} style={styles.table_body}>
                   <Text style={{ width: '22%', fontSize: 18, textAlign: 'left', fontWeight: 'bold', fontSize: 16 }}>{item.name}</Text>
                   <Text>{" "}</Text>
-                  <Text style={{ width: '54%', fontSize: 18, textAlign: 'center', fontSize: 16, fontWeight:'700'  }}>{item.courseAverage}</Text>
+                  <Text style={{ width: '54%', fontSize: 18, textAlign: 'center', fontSize: 16, fontWeight: '700' }}>{item.courseAverage}</Text>
                   <Text>{" "}</Text>
                   <Text style={{ width: '24%', fontSize: 18, textAlign: 'left', fontSize: 16, fontWeight: '700', color: Number(item.change.replace("%", "").replace(",", ".")) > 0.0 ? 'green' : 'red' }}>{item.change}</Text>
                 </View>

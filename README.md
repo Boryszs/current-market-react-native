@@ -1,7 +1,7 @@
 # Current Market 
-React native simple exchange market app.
+React native simple exchange market app. 
 
-[Angular page](https://github.com/Boryszs/Current-Market-Front)
+[Angular page](https://github.com/Boryszs/Current-Market-Front) use the same api. 
 
 ## Technology:
 - react 16.13.1

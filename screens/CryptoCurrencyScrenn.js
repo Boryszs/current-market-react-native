@@ -106,7 +106,7 @@ export default class CryptoCurrencyScreen extends React.Component {
                 <View key={index} style={styles.table_body}>
                   <Text style={{ width: '22%', fontSize: 18, textAlign: 'left', fontWeight: 'bold', fontSize: 16 }}>{item.name}</Text>
                   <Text>{" "}</Text>
-                  <Text style={{ width: '54%', fontSize: 18, textAlign: 'center', fontSize: 16 }}>{item.courseAverage}</Text>
+                  <Text style={{ width: '54%', fontSize: 18, textAlign: 'center', fontSize: 16, fontWeight:'700'  }}>{item.courseAverage}</Text>
                   <Text>{" "}</Text>
                   <Text style={{ width: '24%', fontSize: 18, textAlign: 'left', fontSize: 16, fontWeight: '700', color: Number(item.change.replace("%", "").replace(",", ".")) > 0.0 ? 'green' : 'red' }}>{item.change}</Text>
                 </View>

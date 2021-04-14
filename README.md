@@ -3,7 +3,7 @@ React native simple exchange market app.
 
 [Angular page](https://github.com/Boryszs/Current-Market-Front) use the same api. 
 
-## Technology:
+## Technologies:
 - react 16.13.1
 - react-native 0.63.3
 - react-navigation
